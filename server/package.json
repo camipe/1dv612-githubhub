@@ -1,0 +1,22 @@
+{
+  "name": "githubhub_server",
+  "version": "1.0.0",
+  "description": "githubhub server-side code.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1dv612/mp222si-examination.git"
+  },
+  "author": "Micael Persson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1dv612/mp222si-examination/issues"
+  },
+  "homepage": "https://github.com/1dv612/mp222si-examination#readme",
+  "dependencies": {
+    "express": "^4.15.0"
+  }
+}

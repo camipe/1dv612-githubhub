@@ -1,4 +1,4 @@
-# githubhub
+# githubhub client
 
 > A Vue.js project
 

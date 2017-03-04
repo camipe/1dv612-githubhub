@@ -1,7 +1,7 @@
 {
-  "name": "githubhub",
+  "name": "githubhub_client",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "githubhub client-side code",
   "author": "Micael Persson <micael.c.persson@gmail.com>",
   "private": true,
   "scripts": {

@@ -2,8 +2,8 @@
   <div class="column">
     <div class="tabs is-toggle is-fullwidth">
       <ul>
-        <li class="is-active"><a>Commits</a></li>
-        <li><a>Releases</a></li>
+        <li class="is-active"><a>Feed</a></li>
+        <li><a>Notifications</a></li>
       </ul>
     </div>
     <div class="box">

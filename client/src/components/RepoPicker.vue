@@ -3,61 +3,26 @@
     <nav class="panel">
       <div class="container">
         <p class="panel-heading">
+          Organizations
+        </p>
+        <div class="panel-block" >
+          <div class="control">
+            <div class="select is-fullwidth">
+              <select>
+                <option v-for="name in orgNames">{{name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p class="panel-heading">
           Repositories
         </p>
-        <div class="panel-block">
-          <p class="control has-icon">
-            <input class="input is-small" type="text" placeholder="Search">
-            <span class="icon is-small">
-              <i class="fa fa-search"></i>
-            </span>
-          </p>
-        </div>
-        <a class="panel-block is-active">
+        <a class="panel-block" v-for="repo in orgRepos">
           <span class="panel-icon">
             <i class="fa fa-book"></i>
           </span>
-          bulma
+          {{repo.name}}
         </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fa fa-book"></i>
-          </span>
-          marksheet
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fa fa-book"></i>
-          </span>
-          minireset.css
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fa fa-book"></i>
-          </span>
-          jgthms.github.io
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fa fa-code-fork"></i>
-          </span>
-          daniellowtw/infBoard
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fa fa-code-fork"></i>
-          </span>
-          mojs
-        </a>
-        <label class="panel-block">
-          <input type="checkbox">
-          Remember me
-        </label>
-        <div class="panel-block">
-          <button class="button is-primary is-outlined is-fullwidth">
-            Reset all filters
-          </button>
-        </div>
       </div>
     </nav>
   </div>
@@ -69,6 +34,14 @@ export default {
   data () {
     return {
       msg: ''
+    }
+  },
+  computed: {
+    orgNames () {
+      return this.$store.getters.orgNames
+    },
+    orgRepos () {
+      return this.$store.getters.orgRepos
     }
   }
 }

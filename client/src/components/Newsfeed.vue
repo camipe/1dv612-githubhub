@@ -1,12 +1,12 @@
 <template>
-  <div class="hello">
+  <div class="newsfeed">
 
   </div>
 </template>
 
 <script>
 export default {
-  name: 'commitList',
+  name: 'newsfeed',
   data () {
     return {
       msg: ''

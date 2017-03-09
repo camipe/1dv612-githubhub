@@ -5,19 +5,16 @@
         <p class="panel-heading">
           Organizations
         </p>
-        <div class="panel-block" >
-          <div class="control">
-            <div class="select is-fullwidth">
-              <select>
-                <option v-for="name in orgNames">{{name}}</option>
-              </select>
-            </div>
-          </div>
-        </div>
+        <router-link :to="{name: 'DashboardWithOrg', params: {orgName: name}}"class="panel-block" v-for="name in orgNames">
+          <span class="panel-icon">
+            <i class="fa fa-sitemap"></i>
+          </span>
+          {{name}}
+        </router-link>
         <p class="panel-heading">
           Repositories
         </p>
-        <a class="panel-block" v-for="repo in orgRepos">
+        <a class="panel-block"  v-for="repo in orgRepos">
           <span class="panel-icon">
             <i class="fa fa-book"></i>
           </span>
@@ -31,6 +28,7 @@
 <script>
 export default {
   name: 'repoPicker',
+  props: ['activeOrgName'],
   data () {
     return {
       msg: ''

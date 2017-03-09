@@ -12,9 +12,6 @@
       <a class="nav-item is-active">
         Dashboard
       </a>
-      <a class="nav-item">
-        Settings
-      </a>
       <a class="nav-item" href="https://github.com/1dv612/mp222si-examination">
         <span class="icon">
           <i class="fa fa-github"></i>

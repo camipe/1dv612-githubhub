@@ -1,29 +1,28 @@
 <template>
   <div class="dashboard">
-    <navbar></navbar>
     <section class="section">
       <div class="columns">
-        <repoPicker></repoPicker>
+        <repoPicker :activeOrgName="orgName"></repoPicker>
         <repo></repo>
+        {{orgName}}
       </div>
     </section>
   </div>
 </template>
 
 <script>
-import Navbar from './Navbar.vue'
 import RepoPicker from './RepoPicker.vue'
 import Repo from './Repo.vue'
 
 export default {
   name: 'dashboard',
+  props: ['orgName'],
   data () {
     return {
       msg: ''
     }
   },
   components: {
-    Navbar,
     RepoPicker,
     Repo
   }

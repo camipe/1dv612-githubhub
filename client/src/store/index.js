@@ -14,6 +14,7 @@ export default new Vuex.Store({
         repos: [
           {
             name: 'Testrepo 1',
+            id: '1',
             webhook: 'false',
             settings: {
               issues: 'false',
@@ -25,6 +26,7 @@ export default new Vuex.Store({
           },
           {
             name: 'Testrepo 3',
+            id: '2',
             webhook: 'false',
             settings: {
               issues: 'false',
@@ -42,6 +44,7 @@ export default new Vuex.Store({
         repos: [
           {
             name: 'Testrepo 4',
+            id: '3',
             webhook: 'false',
             settings: {
               issues: 'false',
@@ -53,6 +56,7 @@ export default new Vuex.Store({
           },
           {
             name: 'Testrepo 2',
+            id: '4',
             webhook: 'false',
             settings: {
               issues: 'false',
@@ -64,6 +68,7 @@ export default new Vuex.Store({
           },
           {
             name: 'Testrepo 7',
+            id: '5',
             webhook: 'false',
             settings: {
               issues: 'false',
@@ -81,6 +86,7 @@ export default new Vuex.Store({
         repos: [
           {
             name: 'Testrepo 5',
+            id: '6',
             webhook: 'false',
             settings: {
               issues: 'false',
@@ -92,6 +98,7 @@ export default new Vuex.Store({
           },
           {
             name: 'Testrepo 6',
+            id: '7',
             webhook: 'false',
             settings: {
               issues: 'false',
@@ -106,13 +113,8 @@ export default new Vuex.Store({
     ]
   },
   getters: {
-    orgNames: state => {
-      return state.orgs.map(org => {
-        return org.name
-      })
-    },
-    orgRepos: state => {
-      return state.orgs[1].repos
+    userOrgs: state => {
+      return state.orgs
     }
   },
   mutations: {},

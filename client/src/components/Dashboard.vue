@@ -4,7 +4,6 @@
       <div class="columns">
         <repoPicker :activeOrgName="orgName"></repoPicker>
         <repo></repo>
-        {{orgName}}
       </div>
     </section>
   </div>

@@ -18,7 +18,13 @@ export default new Router({
     },
     {
       path: '/:orgName',
-      name: 'DashboardWithOrg',
+      name: 'OrgSelected',
+      component: Dashboard,
+      props: true
+    },
+    {
+      path: '/:orgName/:repoID',
+      name: 'RepoSelected',
       component: Dashboard,
       props: true
     },

@@ -5,21 +5,21 @@
         <p class="panel-heading">
           Organizations
         </p>
-        <router-link :to="{name: 'DashboardWithOrg', params: {orgName: name}}"class="panel-block" v-for="name in orgNames">
+        <router-link :to="{name: 'OrgSelected', params: {orgName: org.name}}" class="panel-block" v-for="org in userOrgs" :key="org.id">
           <span class="panel-icon">
             <i class="fa fa-sitemap"></i>
           </span>
-          {{name}}
+          {{org.name}}
         </router-link>
         <p class="panel-heading">
           Repositories
         </p>
-        <a class="panel-block"  v-for="repo in orgRepos">
+        <router-link :to="{name: 'RepoSelected', params: {orgName: activeOrgName, repoID: repo.id}}" class="panel-block"  v-for="repo in orgRepos" :key="repo.id">
           <span class="panel-icon">
             <i class="fa fa-book"></i>
           </span>
           {{repo.name}}
-        </a>
+        </router-link>
       </div>
     </nav>
   </div>
@@ -35,13 +35,15 @@ export default {
     }
   },
   computed: {
-    orgNames () {
-      return this.$store.getters.orgNames
+    userOrgs () {
+      return this.$store.getters.userOrgs
     },
     orgRepos () {
-      return this.$store.getters.orgRepos
+      const org = this.userOrgs.find(org => org.name === this.activeOrgName)
+      return org.repos
     }
-  }
+  },
+  methods: {}
 }
 </script>
 

@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
 import Login from '@/components/Login'
 import NotFound from '@/components/NotFound'
+import Newsfeed from '@/components/Newsfeed.vue'
+import SubscriptionSettings from '@/components/SubscriptionSettings.vue'
 
 Vue.use(Router)
 
@@ -26,7 +28,19 @@ export default new Router({
       path: '/:orgName/:repoID',
       name: 'RepoSelected',
       component: Dashboard,
-      props: true
+      props: true,
+      children: [
+        {
+          path: 'feed',
+          name: 'ShowFeed',
+          component: Newsfeed
+        },
+        {
+          path: 'settings',
+          name: 'ShowSettings',
+          component: SubscriptionSettings
+        }
+      ]
     },
     {
       path: '/login',

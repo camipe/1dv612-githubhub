@@ -1,12 +1,12 @@
 <template>
-  <div class="settings">
-
+  <div class="subscription-settings">
+    Test
   </div>
 </template>
 
 <script>
 export default {
-  name: 'settings',
+  name: 'subscriptionSettings',
   data () {
     return {
       msg: ''

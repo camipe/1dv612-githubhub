@@ -14,7 +14,7 @@
         <p class="panel-heading">
           Repositories
         </p>
-        <router-link :to="{name: 'RepoSelected', params: {orgName: activeOrgName, repoID: repo.id}}" class="panel-block"  v-for="repo in orgRepos" :key="repo.id">
+        <router-link :to="{name: 'ShowFeed', params: {orgName: activeOrgName, repoID: repo.id}}" class="panel-block"  v-for="repo in orgRepos" :key="repo.id">
           <span class="panel-icon">
             <i class="fa fa-book"></i>
           </span>

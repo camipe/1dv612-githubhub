@@ -2,70 +2,24 @@
   <div class="column">
     <div class="tabs is-toggle is-fullwidth">
       <ul>
-        <li class="is-active"><a>Feed</a></li>
-        <li><a>Notifications</a></li>
+        <router-link :to="{name: 'ShowFeed'}" tag="li"><a>Feed</a></router-link>
+        <router-link :to="{name: 'ShowSettings'}" tag="li"><a>Notifications</a></router-link>
       </ul>
     </div>
-    <div class="box">
-      <article class="media">
-        <div class="media-left">
-          <figure class="image is-64x64">
-            <img src="http://bulma.io/images/placeholders/128x128.png" alt="Image">
-          </figure>
-        </div>
-        <div class="media-content">
-          <div class="content">
-            <p>
-              <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
-              <br>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
-            </p>
-          </div>
-        </div>
-      </article>
-    </div>
-    <div class="box">
-      <article class="media">
-        <div class="media-left">
-          <figure class="image is-64x64">
-            <img src="http://bulma.io/images/placeholders/128x128.png" alt="Image">
-          </figure>
-        </div>
-        <div class="media-content">
-          <div class="content">
-            <p>
-              <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
-              <br>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
-            </p>
-          </div>
-        </div>
-      </article>
-    </div>
-    <div class="box">
-      <article class="media">
-        <div class="media-left">
-          <figure class="image is-64x64">
-            <img src="http://bulma.io/images/placeholders/128x128.png" alt="Image">
-          </figure>
-        </div>
-        <div class="media-content">
-          <div class="content">
-            <p>
-              <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
-              <br>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
-            </p>
-          </div>
-        </div>
-      </article>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Newsfeed from './Newsfeed.vue'
+import SubscriptionSettings from './SubscriptionSettings.vue'
+
 export default {
   name: 'repo',
+  components: {
+    Newsfeed,
+    SubscriptionSettings
+  },
   data () {
     return {
       msg: ''

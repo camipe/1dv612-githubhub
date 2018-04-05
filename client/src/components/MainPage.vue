@@ -3,20 +3,7 @@
     <navigation :is-logged-in="loggedIn"/>
     <b-container id="main">
       <b-row>
-        <b-col cols="3">
-          <b-card 
-            title="Settings"
-            sub-title="Configure subscriptions">
-            <b-form-group label="Organisations">
-              <b-form-checkbox-group 
-                v-model="selected"
-                :options="options"
-                stacked
-                name="radiosStacked"/>
-            </b-form-group>
-          </b-card>
-          
-        </b-col>
+        <settings :organisations="options"/>
         <b-col cols="9">
           <b-card 
             title="Commit Feed">
@@ -57,16 +44,17 @@
 
 <script>
 import Navigation from '@/components/Navigation';
+import Settings from '@/components/Settings';
 
 export default {
-  name: 'HelloWorld',
+  name: 'MainPage',
     components: {
       Navigation,
+      Settings,
   },
   data () {
     return {
       msg: 'Hello',
-      selected: [],
       options: [
         { text: '1DV527', value: '1DV527' },
         { text: '1DV600', value: '1DV600' },

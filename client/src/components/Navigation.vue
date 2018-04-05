@@ -13,8 +13,6 @@
       id="nav_collapse">
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-        <b-nav-item href="#">Feed</b-nav-item>
-        <b-nav-item href="#">Settings</b-nav-item>
         <b-nav-item 
           href="#" 
           v-if="isLoggedIn === true">Log Out</b-nav-item>

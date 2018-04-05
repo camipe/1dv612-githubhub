@@ -1,26 +1,6 @@
 <template>
   <div class="hello-world">
-    <b-navbar 
-      toggleable="md" 
-      type="dark" 
-      variant="info">
-
-      <b-navbar-toggle target="nav_collapse"/>
-
-      <b-navbar-brand href="#">Githubhub</b-navbar-brand>
-
-      <b-collapse 
-        is-nav 
-        id="nav_collapse">
-        <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item href="#">Feed</b-nav-item>
-          <b-nav-item href="#">Settings</b-nav-item>
-          <b-nav-item href="#">Log In</b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
-
+    <navigation :is-logged-in="loggedIn"/>
     <b-container id="main">
       <b-row>
         <b-col cols="3">
@@ -76,8 +56,13 @@
 </template>
 
 <script>
+import Navigation from '@/components/Navigation';
+
 export default {
   name: 'HelloWorld',
+    components: {
+      Navigation,
+  },
   data () {
     return {
       msg: 'Hello',
@@ -86,7 +71,8 @@ export default {
         { text: '1DV527', value: '1DV527' },
         { text: '1DV600', value: '1DV600' },
         { text: '1DV612', value: '1DV612' }
-      ]
+      ],
+      loggedIn: true,
     }
   }
 }

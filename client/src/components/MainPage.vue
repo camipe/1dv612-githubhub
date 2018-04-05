@@ -4,39 +4,7 @@
     <b-container id="main">
       <b-row>
         <settings :organisations="options"/>
-        <b-col cols="9">
-          <b-card 
-            title="Commit Feed">
-            <b-alert 
-              show 
-              variant="info">
-              <h5 class="alert-heading">New commit!</h5>
-              <p>
-                Aww yeah, you successfully read this important alert message.
-                This example text is going to run a bit longer so that you can see
-                how spacing within an alert works with this kind of content.
-              </p>
-              <hr>
-              <p class="mb-0">
-                Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
-              </p>
-            </b-alert>
-            <b-alert 
-              show 
-              variant="info">
-              <h5 class="alert-heading">New commit!</h5>
-              <p>
-                Aww yeah, you successfully read this important alert message.
-                This example text is going to run a bit longer so that you can see
-                how spacing within an alert works with this kind of content.
-              </p>
-              <hr>
-              <p class="mb-0">
-                Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
-              </p>
-            </b-alert>
-          </b-card>
-        </b-col>
+        <feed :commits="commits"/>
       </b-row>
     </b-container>
   </div>
@@ -45,12 +13,14 @@
 <script>
 import Navigation from '@/components/Navigation';
 import Settings from '@/components/Settings';
+import Feed from '@/components/Feed';
 
 export default {
   name: 'MainPage',
     components: {
       Navigation,
       Settings,
+      Feed
   },
   data () {
     return {
@@ -61,6 +31,23 @@ export default {
         { text: '1DV612', value: '1DV612' }
       ],
       loggedIn: true,
+      commits: [
+        {
+          id: 1,
+          message: 'Added new functions',
+          author: 'Bill Gates'
+        },
+        {
+          id: 2,
+          message: 'Fixed lots of bugs and added tons of features.',
+          author: 'hacker 4chan'
+        },
+        {
+          id: 3,
+          message: '[fix]"vue/prop-name-casing" to not warn variable computed property',
+          author: 'ota-meshi'
+        }
+      ]
     }
   }
 }

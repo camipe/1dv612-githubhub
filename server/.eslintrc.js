@@ -11,7 +11,7 @@ module.exports = {
     "no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
     "no-param-reassign": ["error", {
         "props": true,
-        "ignorePropertyModificationsFor": ["err", "res", "req", "Vue"]
+        "ignorePropertyModificationsFor": ["err", "res", "req", "Vue", "options"]
     }],
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
     "no-console": "off",

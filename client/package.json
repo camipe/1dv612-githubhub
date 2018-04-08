@@ -11,6 +11,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "auth0-js": "^9.4.2",
+    "bootstrap": "^4.0.0",
     "bootstrap-vue": "^2.0.0-rc.6",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"

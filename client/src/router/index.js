@@ -5,7 +5,7 @@ import Callback from '@/components/Callback.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -20,3 +20,15 @@ export default new Router({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.name === 'Callback') { // check if "to"-route is "callback" and allow access
+    next();
+  } else if (router.app.$auth.isAuthenticated()) { // if authenticated allow access
+    next();
+  } else { // trigger auth0 login
+    router.app.$auth.login();
+  }
+});
+
+export default router;

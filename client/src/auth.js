@@ -3,13 +3,12 @@ import Vue from 'vue';
 
 // auth setup following https://www.storyblok.com/tp/how-to-auth0-vuejs-authentication
 
+// TODO: Should be moved to config file
 const webAuth = new auth0.WebAuth({
   domain: 'mipe.eu.auth0.com',
   clientID: '3aw6Y4lbT7jj1awt7CeCsAfSBTI3bvnt',
   // make sure this line is contains the port: 8080
   redirectUri: 'http://localhost:8080/callback',
-  // we will use the api/v2/ to access the user information as payload
-  audience: `https://${1 + 2}/api/v2/`,
   responseType: 'token id_token',
   scope: 'openid profile',
 });
@@ -69,6 +68,7 @@ const auth = new Vue({
     handleAuthentication() {
       return new Promise((resolve, reject) => {
         webAuth.parseHash((err, authResult) => {
+          console.log(authResult);
           if (authResult && authResult.accessToken && authResult.idToken) {
             this.expiresAt = authResult.expiresIn;
             this.accessToken = authResult.accessToken;
@@ -86,7 +86,7 @@ const auth = new Vue({
 });
 
 export default {
-  install(Vue) {
+  install() {
     Vue.prototype.$auth = auth;
   },
 };

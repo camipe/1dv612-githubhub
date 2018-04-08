@@ -1,6 +1,7 @@
 <template>
   <div class="hello-world">
-    <navigation :is-logged-in="loggedIn"/>
+    <navigation :user="$auth.user"/>
+    {{ $auth.accessToken }}
     <b-container id="main">
       <b-row>
         <settings :organisations="options"/>

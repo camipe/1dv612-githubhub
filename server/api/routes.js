@@ -1,5 +1,18 @@
 const express = require('express');
 const axios = require('axios');
+const Apollo = require('apollo-fetch');
+
+const uri = 'https://api.github.com/graphql';
+const apolloFetch = Apollo.createApolloFetch({ uri });
+
+apolloFetch.use(({ req, options }, next) => {
+  if (!options.headers) {
+    options.headers = {};
+  }
+  options.headers.Authorization = 'Bearer 7e248d347da31be4cef73112d5f1284dd123b872';
+
+  next();
+});
 
 const router = express.Router();
 
@@ -16,25 +29,42 @@ router.post('/hooks', (req, res) => {
 });
 
 router.get('/org', (req, res) => {
-  const query = `
-    query {
-      repository(owner:"isaacs", name:"github") {
-        issues(states:CLOSED) {
-          totalCount
+  const query = `query {
+    viewer {
+      organizations(last:10) {
+        edges {
+          node {
+            name
+            repositories(first:10) {
+              edges {
+                node {
+                  name
+                  issues(last:20) {
+                    edges {
+                      node {
+                        createdAt
+                        title
+                        state
+                        author {
+                          login
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
-    }`;
-
-  fetch('https://api.github.com/graphql', {
-    method: 'POST',
-    body: JSON.stringify({ query }),
-    headers: {
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-    },
-  }).then(response => response.text())
-    .then(body => console.log(body)) // {"data":{"repository":{"issues":{"totalCount":247}}}}
-    .catch(error => console.error(error));
-  res.json('Sucess');
+    }
+  }`
+apolloFetch({ query })
+.then((response) => {
+  console.log(response);
+  res.json(response);
+})
+.catch(error => console.error(error));
 });
 
 module.exports = router;

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/1dv612/mp222si-examination#readme",
   "dependencies": {
+    "apollo-fetch": "^0.7.0",
     "axios": "^0.17.1",
     "body-parser": "^1.18.2",
     "dotenv": "^4.0.0",

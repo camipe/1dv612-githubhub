@@ -3,17 +3,17 @@
     <b-card 
       title="Commit Feed">
       <div 
-        v-for="commit in commits"
-        :key="commit.id">
+        v-for="issue in issues"
+        :key="issue.id">
         <b-alert
           show 
           variant="info">
           <p>
-            {{ commit.message }}
+            {{ issue.message }}
           </p>
           <hr>
           <p class="mb-0">
-            Author: {{ commit.author }}
+            Author: {{ issue.author }}
           </p>
         </b-alert>
       </div>
@@ -24,7 +24,7 @@
 export default {
   name: 'Feed',
   props: {
-    commits: {
+    issues: {
       type: Array,
       default: () => {
         return [];

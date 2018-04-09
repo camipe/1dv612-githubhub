@@ -2,9 +2,14 @@ module.exports = {
   extends: [
     // add more generic rulesets here, such as:
     // 'eslint:recommended',
-    'plugin:vue/strongly-recommended',
+    "plugin:vue/recommended",
     'airbnb-base',
   ],
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "ecmaVersion": 2017,
+    "sourceType": "module"
+  },
   rules: {
     // override/add rules settings here, such as:
     // 'vue/no-unused-vars': 'error'

@@ -14,9 +14,14 @@ apolloFetch.use(({ req, options }, next) => {
 
 const convert = (data) => {
   const orgs = data.viewer.organizations.edges;
-  const result = [];
+  const result = {
+    organisations: [],
+    issues: [],
+  };
+
   orgs.forEach((org) => {
     const orgName = org.node.name;
+    result.organisations.push(orgName);
     const repos = org.node.repositories.edges;
 
     repos.forEach((repo) => {
@@ -33,7 +38,7 @@ const convert = (data) => {
           status: issue.node.state,
           createdAt: issue.node.createdAt,
         };
-        result.push(i);
+        result.issues.push(i);
       });
     });
   });

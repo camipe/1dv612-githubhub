@@ -1,11 +1,10 @@
 <template>
   <div class="hello-world">
     <navigation :user="$auth.user"/>
-    {{ $auth.accessToken }}
     <b-container id="main">
       <b-row>
-        <settings :organisations="options"/>
-        <feed :commits="commits"/>
+        <settings :organisations="organisations"/>
+        <feed :issues="issues"/>
       </b-row>
     </b-container>
   </div>
@@ -15,6 +14,7 @@
 import Navigation from '@/components/Navigation';
 import Settings from '@/components/Settings';
 import Feed from '@/components/Feed';
+import axios from 'axios';
 
 export default {
   name: 'MainPage',
@@ -26,31 +26,27 @@ export default {
   data () {
     return {
       msg: 'Hello',
-      options: [
-        { text: '1DV527', value: '1DV527' },
-        { text: '1DV600', value: '1DV600' },
-        { text: '1DV612', value: '1DV612' }
-      ],
-      loggedIn: true,
-      commits: [
-        {
-          id: 1,
-          message: 'Added new functions',
-          author: 'Bill Gates'
-        },
-        {
-          id: 2,
-          message: 'Fixed lots of bugs and added tons of features.',
-          author: 'hacker 4chan'
-        },
-        {
-          id: 3,
-          message: '[fix]"vue/prop-name-casing" to not warn variable computed property',
-          author: 'ota-meshi'
-        }
-      ]
+      organisations: [],
+      issues: []
     }
-  }
+  },
+  created() {
+    try {
+      axios.get(`http://localhost:7777/org`)
+      .then((res) => {
+        this.organisations = res.data.organisations;
+        this.issues = res.data.issues;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+
+
+    } catch (e) {
+      console.log(e);
+    }
+  }    
 }
 </script>
 

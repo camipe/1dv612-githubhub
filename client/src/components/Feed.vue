@@ -8,12 +8,12 @@
         <b-alert
           show 
           variant="info">
-          <p>
-            {{ issue.message }}
-          </p>
+          <h4>[{{ issue.status }}] {{ issue.title }}</h4>
+          <span>Reported by {{ issue.author }} at {{ issue.createdAt }} </span>            
           <hr>
           <p class="mb-0">
-            Author: {{ issue.author }}
+            Organisation: {{ issue.org }} <br>
+            Repository: {{ issue.repo }}
           </p>
         </b-alert>
       </div>

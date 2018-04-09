@@ -7,7 +7,6 @@ import Vue from 'vue';
 const webAuth = new auth0.WebAuth({
   domain: 'mipe.eu.auth0.com',
   clientID: '3aw6Y4lbT7jj1awt7CeCsAfSBTI3bvnt',
-  // make sure this line is contains the port: 8080
   redirectUri: 'http://localhost:8080/callback',
   responseType: 'token id_token',
   scope: 'openid profile',

@@ -46,7 +46,12 @@ export default {
     } catch (e) {
       console.log(e);
     }
-  }    
+  },
+  methods: {
+    subscribe: function() {
+      // TODO: skicka subscribe information med axios
+    }
+  } 
 }
 </script>
 

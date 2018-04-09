@@ -11,6 +11,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 // TODO: import models
+require('./api/models/Sub');
 
 // Start app
 const app = require('./app');

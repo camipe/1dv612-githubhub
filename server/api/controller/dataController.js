@@ -12,7 +12,19 @@ apolloFetch.use(({ req, options }, next) => {
   next();
 });
 
-const convert = (data) => {
+const formatOrganizations = (data) => {
+  const orgs = data.viewer.organizations.edges;
+  const result = [];
+
+  orgs.forEach((org) => {
+    const orgName = org.node.name;
+    result.push(orgName);
+  });
+
+  return result;
+};
+
+const formatIssues = (data) => {
   const orgs = data.viewer.organizations.edges;
   const result = {
     organisations: [],
@@ -45,6 +57,27 @@ const convert = (data) => {
 
   return result;
 };
+
+exports.getOrganizations = (req, res) => {
+  const query = `query {
+    viewer {
+      organizations(last:10) {
+        edges {
+          node {
+            name
+          }
+        }
+      }
+    }
+  }`;
+
+  apolloFetch({ query })
+    .then((response) => {
+      res.json(formatOrganizations(response.data));
+    })
+    .catch(error => console.error(error));
+};
+
 
 exports.getIssues = (req, res) => {
   const query = `query {
@@ -80,7 +113,7 @@ exports.getIssues = (req, res) => {
 
   apolloFetch({ query })
     .then((response) => {
-      res.json(convert(response.data));
+      res.json(formatIssues(response.data));
     })
     .catch(error => console.error(error));
 };

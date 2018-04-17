@@ -10,17 +10,10 @@ router.get('/', (req, res) => {
 
 router.post('/subscribe', subController.subscribe);
 
-router.post('/hook', (req, res) => {
-  // ta ut organsiation från request
+router.post('/hook', subController.notify);
 
-  // hämta organisation från db
+router.get('/organizations', dataController.getOrganizations);
 
-  // // maila relevant information till till alla emails i subscribe arrayen
-
-  console.log(req.body);
-  res.json({ Text: 'Success' });
-});
-
-router.get('/org', dataController.getIssues);
+router.get('/issues', dataController.getIssues);
 
 module.exports = router;

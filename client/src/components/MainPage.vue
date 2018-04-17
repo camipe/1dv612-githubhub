@@ -32,7 +32,7 @@ export default {
   },
   created() {
     try {
-      axios.get(`http://localhost:7777/org`)
+      axios.get(`http://localhost:7777/issues`)
       .then((res) => {
         this.organisations = res.data.organisations;
         this.issues = res.data.issues;

@@ -10,7 +10,6 @@ mongoose.connection.on('error', (err) => {
   console.error(err.message);
 });
 
-// TODO: import models
 require('./api/models/Sub');
 
 // Start app

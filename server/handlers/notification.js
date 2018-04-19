@@ -10,13 +10,24 @@ const transport = nodemailer.createTransport({
 });
 
 exports.send = (options) => {
-  const html = '<h1>HELLO WORLD </h1>';
-  const text = 'Hello world';
+  const html = `<p>A new issue has been posted by: ${options.issue.user.login}</p>
+    <h3>Issue Information</h3>
+    <p>
+      Title: ${options.issue.title}<br/>
+      Organization: ${options.organization.login}<br/>
+      Repository: ${options.repository.name}<br/>
+    </p>`;
+
+  const text = `A new issue has been posted by: ${options.issue.user.login}
+Issue Information:
+Title: ${options.issue.title}
+Organization: ${options.organization.login}
+Repository: ${options.repository.name}`;
 
   const mailOptions = {
     from: 'Micael Persson <noreply@micaelpersson.com>',
-    to: options.email,
-    subject: options.subject,
+    to: options.subscribers,
+    subject: `New issue in organization ${options.organization.login}`,
     html,
     text,
   };

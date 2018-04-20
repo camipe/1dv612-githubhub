@@ -1,10 +1,10 @@
 <template>
   <b-col cols="3">
-    <b-card 
+    <b-card
       title="Settings"
       sub-title="Configure subscriptions">
       <b-form-group label="Organisations">
-        <b-form-checkbox-group 
+        <b-form-checkbox-group
           v-model="selected"
           :options="organisations"
           stacked
@@ -19,15 +19,13 @@ export default {
   props: {
     organisations: {
       type: Array,
-      default: () => {
-        return [];
-      },
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
       selected: [],
-    }
-  }
-}
+    };
+  },
+};
 </script>

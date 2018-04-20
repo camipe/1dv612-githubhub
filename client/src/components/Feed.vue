@@ -1,19 +1,19 @@
 <template>
   <b-col cols="9">
-    <b-card 
+    <b-card
       title="Commit Feed">
-      <div 
-        v-for="issue in issues"
+      <div
+        v-for="issue in sortedIssues"
         :key="issue.id">
         <b-alert
-          show 
+          show
           variant="info">
           <h4>[{{ issue.status }}] {{ issue.title }}</h4>
-          <span>Reported by {{ issue.author }} at {{ issue.createdAt }} </span>            
-          <hr>
           <p class="mb-0">
-            Organisation: {{ issue.org }} <br>
-            Repository: {{ issue.repo }}
+            Reported by {{ issue.author }} <br>
+            Organization: {{ issue.org }} <br>
+            Repository: {{ issue.repo }} <br>
+            {{ issue.createdAt | moment('MMMM Do YYYY, h:mm:ss a') }}
           </p>
         </b-alert>
       </div>
@@ -26,10 +26,15 @@ export default {
   props: {
     issues: {
       type: Array,
-      default: () => {
-        return [];
-      },
-    }
+      default: () => [],
+    },
   },
-}
+  computed: {
+    sortedIssues() {
+      const sorted = [...this.issues];
+      sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      return sorted;
+    },
+  },
+};
 </script>

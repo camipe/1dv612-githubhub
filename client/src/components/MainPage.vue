@@ -18,41 +18,38 @@ import axios from 'axios';
 
 export default {
   name: 'MainPage',
-    components: {
-      Navigation,
-      Settings,
-      Feed
+  components: {
+    Navigation,
+    Settings,
+    Feed,
   },
-  data () {
+  data() {
     return {
       msg: 'Hello',
       organisations: [],
-      issues: []
-    }
+      issues: [],
+    };
   },
   created() {
     try {
-      axios.get(`http://localhost:7777/issues`)
-      .then((res) => {
-        this.organisations = res.data.organisations;
-        this.issues = res.data.issues;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-
-
+      axios.get('http://localhost:7777/issues')
+        .then((res) => {
+          this.organisations = res.data.organisations;
+          this.issues = res.data.issues;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } catch (e) {
       console.log(e);
     }
   },
   methods: {
-    subscribe: function() {
+    subscribe() {
       // TODO: skicka subscribe information med axios
-    }
-  } 
-}
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

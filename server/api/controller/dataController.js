@@ -33,23 +33,31 @@ const formatIssues = (data) => {
 
   orgs.forEach((org) => {
     const orgName = org.node.name;
+    const orgUrl = org.node.url;
     result.organisations.push(orgName);
     const repos = org.node.repositories.edges;
 
     repos.forEach((repo) => {
       const repoName = repo.node.name;
+      const repoUrl = repo.node.url;
       const issues = repo.node.issues.edges;
 
       issues.forEach((issue) => {
         // create new issue object with the information from each issue
         const i = {
           org: orgName,
+          orgUrl,
           repo: repoName,
+          repoUrl,
           title: issue.node.title,
-          author: issue.node.author.login,
+          url: issue.node.url,
           status: issue.node.state,
           createdAt: issue.node.createdAt,
-        };
+          author: {
+            name: issue.node.author.login,
+            url: issue.node.author.url,
+          },
+        }
         result.issues.push(i);
       });
     });
@@ -86,18 +94,23 @@ exports.getIssues = (req, res) => {
         edges {
           node {
             name
+            url
             repositories(first:10) {
               edges {
                 node {
                   name
-                  issues(last:20) {
+                  url
+                  issues(last:50) {
                     edges {
                       node {
                         createdAt
                         title
                         state
+                        url
                         author {
                           login
+                          avatarUrl
+                          url
                         }
                       }
                     }

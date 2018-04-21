@@ -8,7 +8,7 @@ module.exports = {
   rules: {
     // override/add rules settings here, such as:
     // 'vue/no-unused-vars': 'error'
-    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
+    "no-unused-vars": ["error", { "argsIgnorePattern": ["next", "req"] }],
     "no-param-reassign": ["error", {
         "props": true,
         "ignorePropertyModificationsFor": ["err", "res", "req", "Vue", "options"]

@@ -79,6 +79,9 @@ exports.getOrganizations = (req, res) => {
     }
   }`;
 
+  // TODO: create table where users current subscriptions are stored
+  // TODO: compare organizations and mark them as subscribed if active
+
   apolloFetch({ query })
     .then((response) => {
       res.json(formatOrganizations(response.data));

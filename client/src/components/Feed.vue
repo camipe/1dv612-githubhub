@@ -8,11 +8,11 @@
         <b-alert
           show
           variant="info">
-          <h4>[{{ issue.status }}] {{ issue.title }}</h4>
+          <h4><a :href="issue.url">[{{ issue.status }}] {{ issue.title }}</a></h4>
           <p class="mb-0">
-            Reported by {{ issue.author }} <br>
-            Organization: {{ issue.org }} <br>
-            Repository: {{ issue.repo }} <br>
+            Reported by <a :href="issue.author.url">{{ issue.author.name }}</a><br>
+            Organization: <a :href="issue.orgUrl">{{ issue.org }}</a><br>
+            Repository: <a :href="issue.repoUrl">{{ issue.repo }}</a><br>
             {{ issue.createdAt | moment('MMMM Do YYYY, h:mm:ss a') }}
           </p>
         </b-alert>

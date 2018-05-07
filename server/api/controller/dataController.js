@@ -1,4 +1,6 @@
+const mongoose = require('mongoose');
 const Apollo = require('apollo-fetch');
+const Sub = mongoose.model('Sub');
 
 const uri = 'https://api.github.com/graphql';
 const apolloFetch = Apollo.createApolloFetch({ uri });
@@ -12,15 +14,20 @@ apolloFetch.use(({ req, options }, next) => {
   next();
 });
 
-const formatOrganizations = (data) => {
+const formatOrganizations = async (data) => {
   const orgs = data.viewer.organizations.edges;
   const result = [];
 
+  const subs = await Sub.find({ subscribers: 'micael@gmail.com'});
+  const subbedOrganizations = subs.map(sub => sub.organisation);
+
   orgs.forEach((org) => {
     const orgName = org.node.name;
-    result.push(orgName);
+    result.push({
+      name: org.node.name,
+      subscribed: subbedOrganizations.includes(org.node.name)
+    });
   });
-
   return result;
 };
 
@@ -83,8 +90,9 @@ exports.getOrganizations = (req, res) => {
   // TODO: compare organizations and mark them as subscribed if active
 
   apolloFetch({ query })
-    .then((response) => {
-      res.json(formatOrganizations(response.data));
+    .then( async (response) => {
+      const organizations = await formatOrganizations(response.data);
+      res.json(organizations);
     })
     .catch(error => console.error(error));
 };

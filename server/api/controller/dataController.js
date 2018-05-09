@@ -33,15 +33,12 @@ const formatOrganizations = async (data) => {
 
 const formatIssues = (data) => {
   const orgs = data.viewer.organizations.edges;
-  const result = {
-    organisations: [],
-    issues: [],
-  };
+  const result = [];
 
   orgs.forEach((org) => {
     const orgName = org.node.name;
     const orgUrl = org.node.url;
-    result.organisations.push(orgName);
+    // result.organisations.push(orgName);
     const repos = org.node.repositories.edges;
 
     repos.forEach((repo) => {
@@ -65,7 +62,7 @@ const formatIssues = (data) => {
             url: issue.node.author.url,
           },
         }
-        result.issues.push(i);
+        result.push(i);
       });
     });
   });
@@ -85,9 +82,6 @@ exports.getOrganizations = (req, res) => {
       }
     }
   }`;
-
-  // TODO: create table where users current subscriptions are stored
-  // TODO: compare organizations and mark them as subscribed if active
 
   apolloFetch({ query })
     .then( async (response) => {

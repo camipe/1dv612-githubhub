@@ -14,7 +14,6 @@
 import Navigation from '@/components/Navigation';
 import Settings from '@/components/Settings';
 import Feed from '@/components/Feed';
-import axios from 'axios';
 
 export default {
   name: 'MainPage',
@@ -29,20 +28,6 @@ export default {
       organisations: [],
       issues: [],
     };
-  },
-  created() {
-    try {
-      axios.get('http://localhost:7777/issues')
-        .then((res) => {
-          this.organisations = res.data.organisations;
-          this.issues = res.data.issues;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (e) {
-      console.log(e);
-    }
   },
   methods: {
     subscribe() {

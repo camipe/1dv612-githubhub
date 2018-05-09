@@ -5,7 +5,8 @@ const Sub = mongoose.model('Sub');
 
 
 exports.subscribe = (req, res) => {
-  req.body.subs.forEach(async (sub) => {
+  console.log(req.body);
+  req.body.forEach(async (sub) => {
     try {
       let subscription = await Sub.findOne({ organisation: sub.organisation });
       if (!subscription) {

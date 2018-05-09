@@ -21,13 +21,14 @@
   </b-col>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Feed',
-  props: {
-    issues: {
-      type: Array,
-      default: () => [],
-    },
+  data() {
+    return {
+      issues: [],
+    };
   },
   computed: {
     sortedIssues() {
@@ -35,6 +36,19 @@ export default {
       sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       return sorted;
     },
+  },
+  created() {
+    try {
+      axios.get('http://localhost:7777/issues')
+        .then((res) => {
+          this.issues = res.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   },
 };
 </script>

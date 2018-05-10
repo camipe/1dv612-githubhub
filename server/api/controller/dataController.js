@@ -5,14 +5,15 @@ const Sub = mongoose.model('Sub');
 const uri = 'https://api.github.com/graphql';
 const apolloFetch = Apollo.createApolloFetch({ uri });
 
-apolloFetch.use(({ req, options }, next) => {
-  if (!options.headers) {
-    options.headers = {};
-  }
-  options.headers.Authorization = 'Bearer 7e248d347da31be4cef73112d5f1284dd123b872';
-
-  next();
-});
+const configApollo = (apiKey) =>
+  {apolloFetch.use(({ req, options }, next) => {
+    if (!options.headers) {
+      options.headers = {};
+    }
+    options.headers.Authorization = `Bearer ${ apiKey }`;
+    next();
+  });
+}
 
 const formatOrganizations = async (data) => {
   const orgs = data.viewer.organizations.edges;
@@ -83,6 +84,8 @@ exports.getOrganizations = (req, res) => {
     }
   }`;
 
+  configApollo(req.user.ghApiKey);
+
   apolloFetch({ query })
     .then( async (response) => {
       const organizations = await formatOrganizations(response.data);
@@ -128,6 +131,8 @@ exports.getIssues = (req, res) => {
       }
     }
   }`;
+
+  configApollo(req.user.ghApiKey);
 
   apolloFetch({ query })
     .then((response) => {

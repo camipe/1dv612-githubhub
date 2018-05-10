@@ -31,28 +31,27 @@ export default {
       saveMsg: '',
     };
   },
-  created() {
-    try {
-      axios.get('http://localhost:7777/organizations')
-        .then((res) => {
-          this.organizations = res.data;
-          this.organizations.forEach((org) => {
-            if (org.subscribed) {
-              this.selected.push(org.name);
-            }
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (e) {
-      console.log(e);
-    }
+  mounted() {
+    this.getOrganizations();
   },
   methods: {
+    async getOrganizations() {
+      try {
+        const res = await axios({
+          url: 'http://localhost:7777/organizations',
+          headers: { Authorization: `Bearer ${this.$auth.token}` },
+        });
+        this.organizations = res.data;
+        this.organizations.forEach((org) => {
+          if (org.subscribed) {
+            this.selected.push(org.name);
+          }
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    },
     async updateSubscriptions() {
-      // eslint-disable-next-line
-      console.log(this.$auth.user);
       const postData = [];
       this.saveMsg = '';
 
@@ -60,11 +59,15 @@ export default {
         postData.push({
           name: org.name,
           subscribed: this.selected.includes(org.name),
-          email: 'micael@gmail.com',
         });
       });
       try {
-        const result = await axios.post('http://localhost:7777/subscribe', postData);
+        const result = await axios({
+          method: 'POST',
+          url: 'http://localhost:7777/subscribe',
+          headers: { Authorization: `Bearer ${this.$auth.token}` },
+          data: postData,
+        });
         this.saveMsg = 'Saved sucessfully';
         console.log(result);
       } catch (error) {

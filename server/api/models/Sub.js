@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const SubSchema = new mongoose.Schema({
-  organisation: String,
+  organization: String,
   subscribers: Array,
 });
 

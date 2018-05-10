@@ -37,18 +37,21 @@ export default {
       return sorted;
     },
   },
-  created() {
-    try {
-      axios.get('http://localhost:7777/issues')
-        .then((res) => {
-          this.issues = res.data;
-        })
-        .catch((error) => {
-          console.log(error);
+  mounted() {
+    this.getIssues();
+  },
+  methods: {
+    async getIssues() {
+      try {
+        const res = await axios({
+          url: 'http://localhost:7777/issues',
+          headers: { Authorization: `Bearer ${this.$auth.token}` },
         });
-    } catch (e) {
-      console.log(e);
-    }
+        this.issues = res.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
 };
 </script>

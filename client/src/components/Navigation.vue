@@ -16,7 +16,8 @@
         <b-nav-item>{{ `User: ${$auth.user.name || 'unknown'}` }}</b-nav-item>
         <b-nav-item
           v-if="$auth.user !== null"
-          href="#">Log Out</b-nav-item>
+          href="#"
+          @click="$auth.logout">Log Out</b-nav-item>
         <b-nav-item
           v-else
           href="#">Log In</b-nav-item>

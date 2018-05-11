@@ -23,6 +23,7 @@ exports.getAuth0Profile = async (req, res, next) => {
       url:`https://mipe.eu.auth0.com/api/v2/users/${req.user.sub}`,
       headers: {'authorization': `Bearer ${process.env.AUTH0_KEY}`},  
     })
+    console.log(response.data.identities[0].access_token);
     req.user.email = response.data.email;
     req.user.ghApiKey = response.data.identities[0].access_token;
     next();

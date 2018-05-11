@@ -15,12 +15,12 @@ const configApollo = (apiKey) =>
   });
 }
 
-const formatOrganizations = async (data) => {
+const formatOrganizations = async (data, email) => {
   const orgs = data.viewer.organizations.edges;
   const result = [];
 
-  const subs = await Sub.find({ subscribers: 'micael@gmail.com'});
-  const subbedOrganizations = subs.map(sub => sub.organisation);
+  const subs = await Sub.find({ subscribers: email });
+  const subbedOrganizations = subs.map(sub => sub.organization);
 
   orgs.forEach((org) => {
     const orgName = org.node.name;
@@ -88,7 +88,7 @@ exports.getOrganizations = (req, res) => {
 
   apolloFetch({ query })
     .then( async (response) => {
-      const organizations = await formatOrganizations(response.data);
+      const organizations = await formatOrganizations(response.data, req.user.email);
       res.json(organizations);
     })
     .catch(error => console.error(error));

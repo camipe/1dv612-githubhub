@@ -50,7 +50,20 @@ const auth = new Vue({
   },
   methods: {
     login() {
-      webAuth.authorize();
+      // // Calculate URL to redirect to
+      // const url = webAuth.client.buildAuthorizeUrl({
+      //   clientID: '3aw6Y4lbT7jj1awt7CeCsAfSBTI3bvnt', // string
+      //   responseType: 'token id_token', // code or token
+      //   redirectUri: 'http://localhost:8080/callback',
+      //   nonce: 'ghubhub',
+      // });
+      // console.log(url);
+      // global.window.location = url;
+
+      webAuth.authorize({
+        connection: 'github',
+        connection_scope: 'user admin:org_hook read:org repo',
+      });
     },
     logout() {
       // eslint-disable-next-line
@@ -59,7 +72,6 @@ const auth = new Vue({
         localStorage.removeItem('id_token');
         localStorage.removeItem('expires_at');
         localStorage.removeItem('user');
-        webAuth.authorize();
       });
     },
     isAuthenticated() {
@@ -70,12 +82,14 @@ const auth = new Vue({
         webAuth.parseHash((err, authResult) => {
           console.log(authResult);
           if (authResult && authResult.accessToken && authResult.idToken) {
+            console.log(2);
             this.expiresAt = authResult.expiresIn;
             this.accessToken = authResult.accessToken;
             this.token = authResult.idToken;
             this.user = authResult.idTokenPayload;
             resolve();
           } else if (err) {
+            console.log(1);
             this.logout();
             reject(err);
           }

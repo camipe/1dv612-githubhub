@@ -7,17 +7,21 @@ const Sub = mongoose.model('Sub');
 exports.subscribe = (req, res) => {
   req.body.forEach(async (organization) => {
     try {
+      // check if sub exists in db
       let subscription = await Sub.findOne({ organization: organization.name });
       if (!subscription) {
+        // create a new if it doesn't exist
         subscription = new Sub({ organization: organization.name, subscribers: [] });
-        if (organization.subscribe) {
+        // subscribe user if requested
+        if (organization.subscribed) {
           subscription.subscribers.push(req.user.email);
         }
         await subscription.save();
       } else {
-        if (organization.subscribed) {
+        console.log(subscription);
+        if ((organization.subscribed && !subscription.subscribers.includes(req.user.email))) {
           subscription.subscribers.push(req.user.email);
-        } else {
+        } else if (!organization.subscribed) {
           subscription.subscribers = subscription.subscribers.filter(email => email !== req.user.email);
         }
         await subscription.save();

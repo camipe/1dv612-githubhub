@@ -6,7 +6,7 @@ const auth = require('../handlers/auth');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname + '../../client/dist/index.html'));
+  res.sendFile('index.html', {root: `${__dirname}../../client/dist/`});
 });
 // subscribe to organization's issues
 router.post('/api/subscribe', auth.verifyJwt, auth.getAuth0Profile, subController.subscribe);

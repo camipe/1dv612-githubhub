@@ -44,7 +44,7 @@ export default {
     async getIssues() {
       try {
         const res = await axios({
-          url: 'http://localhost:7777/issues',
+          url: `${process.env.API_URL}/issues`,
           headers: { Authorization: `Bearer ${this.$auth.token}` },
         });
         this.issues = res.data;

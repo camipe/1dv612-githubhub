@@ -21,6 +21,7 @@ const router = new Router({
   ],
 });
 
+// force login
 router.beforeEach((to, from, next) => {
   if (to.name === 'Callback') { // check if "to"-route is "callback" and allow access
     next();

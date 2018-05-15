@@ -38,10 +38,11 @@ export default {
     async getOrganizations() {
       try {
         const res = await axios({
-          url: 'http://localhost:7777/organizations',
+          url: `${process.env.API_URL}/organizations`,
           headers: { Authorization: `Bearer ${this.$auth.token}` },
         });
         this.organizations = res.data;
+        // check if organization should be marked as subscribed
         this.organizations.forEach((org) => {
           if (org.subscribed) {
             this.selected.push(org.name);
@@ -55,21 +56,25 @@ export default {
       const postData = [];
       this.saveMsg = '';
 
+      // format organization data
       this.organizations.forEach((org) => {
         postData.push({
           name: org.name,
           subscribed: this.selected.includes(org.name),
         });
       });
+      // post data to api
       try {
         const result = await axios({
           method: 'POST',
-          url: 'http://localhost:7777/subscribe',
+          url: `${process.env.API_URL}/subscribe`,
           headers: { Authorization: `Bearer ${this.$auth.token}` },
           data: postData,
         });
+        if (result.status !== 204) {
+          throw new Error();
+        }
         this.saveMsg = 'Saved sucessfully';
-        console.log(result);
       } catch (error) {
         this.saveMsg = 'Save failed';
         console.log(error);

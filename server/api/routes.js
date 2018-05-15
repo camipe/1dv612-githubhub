@@ -9,12 +9,12 @@ router.get('/', auth.verifyJwt, auth.getAuth0Profile, (req, res) => {
   res.json({text: 'success'});
 });
 
-router.post('/subscribe', auth.verifyJwt, auth.getAuth0Profile, subController.subscribe);
+router.post('/api/subscribe', auth.verifyJwt, auth.getAuth0Profile, subController.subscribe);
 
-router.post('/hook', subController.notify);
+router.post('/api/hook', subController.notify);
 
-router.get('/organizations', auth.verifyJwt, auth.getAuth0Profile, dataController.getOrganizations);
+router.get('/api/organizations', auth.verifyJwt, auth.getAuth0Profile, dataController.getOrganizations);
 
-router.get('/issues', auth.verifyJwt, auth.getAuth0Profile, dataController.getIssues);
+router.get('/api/issues', auth.verifyJwt, auth.getAuth0Profile, dataController.getIssues);
 
 module.exports = router;

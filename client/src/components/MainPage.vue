@@ -3,8 +3,8 @@
     <navigation :user="$auth.user"/>
     <b-container id="main">
       <b-row>
-        <settings :organisations="organisations"/>
-        <feed :issues="issues"/>
+        <settings/>
+        <feed/>
       </b-row>
     </b-container>
   </div>
@@ -21,18 +21,6 @@ export default {
     Navigation,
     Settings,
     Feed,
-  },
-  data() {
-    return {
-      msg: 'Hello',
-      organisations: [],
-      issues: [],
-    };
-  },
-  methods: {
-    subscribe() {
-      // TODO: skicka subscribe information med axios
-    },
   },
 };
 </script>

@@ -3,11 +3,10 @@ import Vue from 'vue';
 
 // auth setup following https://www.storyblok.com/tp/how-to-auth0-vuejs-authentication
 
-// TODO: Should be moved to config file
 const webAuth = new auth0.WebAuth({
   domain: 'mipe.eu.auth0.com',
   clientID: '3aw6Y4lbT7jj1awt7CeCsAfSBTI3bvnt',
-  redirectUri: 'http://localhost:8080/callback',
+  redirectUri: `${process.env.API_URL}/callback`,
   responseType: 'token id_token',
   scope: 'openid profile',
 });
@@ -50,19 +49,9 @@ const auth = new Vue({
   },
   methods: {
     login() {
-      // // Calculate URL to redirect to
-      // const url = webAuth.client.buildAuthorizeUrl({
-      //   clientID: '3aw6Y4lbT7jj1awt7CeCsAfSBTI3bvnt', // string
-      //   responseType: 'token id_token', // code or token
-      //   redirectUri: 'http://localhost:8080/callback',
-      //   nonce: 'ghubhub',
-      // });
-      // console.log(url);
-      // global.window.location = url;
-
       webAuth.authorize({
         connection: 'github',
-        connection_scope: 'user admin:org_hook read:org repo',
+        connection_scope: 'user admin:org_hook read:org repo', // github api scope requested
       });
     },
     logout() {

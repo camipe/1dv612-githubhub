@@ -20,7 +20,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static('./dist/'));
+app.use(express.static('./client_build/'));
 
 // Handle routing
 app.use('/', routes);

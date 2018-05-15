@@ -6,7 +6,7 @@ import Vue from 'vue';
 const webAuth = new auth0.WebAuth({
   domain: 'mipe.eu.auth0.com',
   clientID: '3aw6Y4lbT7jj1awt7CeCsAfSBTI3bvnt',
-  redirectUri: `${process.env.API_URL}/callback`,
+  redirectUri: `${process.env.BASE_URL}/callback`,
   responseType: 'token id_token',
   scope: 'openid profile',
 });

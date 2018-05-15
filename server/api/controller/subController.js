@@ -18,27 +18,26 @@ exports.subscribe = (req, res) => {
         }
         await subscription.save();
       } else {
-        console.log(subscription);
+
         if ((organization.subscribed && !subscription.subscribers.includes(req.user.email))) {
+          //subscribe user if .subscribed is true
           subscription.subscribers.push(req.user.email);
         } else if (!organization.subscribed) {
+          //unsubscribe user if .subscribed is not true
           subscription.subscribers = subscription.subscribers.filter(email => email !== req.user.email);
         }
         await subscription.save();
       }
-
-      // TODO: kolla om hook finns annars skapa hook
-      
+      // setup hook if it doesn't exist
       const hook = await axios({
         url:`https://api.github.com/orgs/${ organization.name }/hooks`,
         headers: {'authorization': `Bearer ${ req.user.ghApiKey }`},
       });
       if ((Array.isArray(hook) || hook.data.length < 1)) {
-        console.log('after-if')
         hookOptions = {
           name: 'web',
           config: {
-            url: 'https://58c4efca.ngrok.io/hook',
+            url: `${process.env.HOST_URI}/api/hook`,
             content_type: 'json',
           },
           events: ['issues'],
@@ -54,13 +53,12 @@ exports.subscribe = (req, res) => {
       console.log(error.response.data);
     }
   });
-
-
   res.sendStatus(204);
 };
 
+// notifies all subscribed users when an organtization has an incoming hook
 exports.notify = async (req, res) => {
-  console.log(req.body);
+  // only triggers on new/opened issues
   if (req.body.action === 'opened') {
     try {
       const subscription = await Sub.findOne({ organization: req.body.organization.login });

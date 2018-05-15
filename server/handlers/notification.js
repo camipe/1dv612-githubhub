@@ -9,6 +9,7 @@ const transport = nodemailer.createTransport({
   },
 });
 
+// send an email notifying user about a new issue
 exports.send = (options) => {
   const html = `<p>A new issue has been posted by: ${options.issue.user.login}</p>
     <h3>Issue Information</h3>

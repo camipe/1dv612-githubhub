@@ -2,9 +2,11 @@ const mongoose = require('mongoose');
 const Apollo = require('apollo-fetch');
 const Sub = mongoose.model('Sub');
 
+// setup apollo
 const uri = 'https://api.github.com/graphql';
 const apolloFetch = Apollo.createApolloFetch({ uri });
 
+// function which sets the api key of the current user for the request
 const configApollo = (apiKey) =>
   {apolloFetch.use(({ req, options }, next) => {
     if (!options.headers) {
@@ -15,6 +17,7 @@ const configApollo = (apiKey) =>
   });
 }
 
+// formats organizations to be used in the client
 const formatOrganizations = async (data, email) => {
   const orgs = data.viewer.organizations.edges;
   const result = [];
@@ -32,6 +35,7 @@ const formatOrganizations = async (data, email) => {
   return result;
 };
 
+// formats issues to be used in the client
 const formatIssues = (data) => {
   const orgs = data.viewer.organizations.edges;
   const result = [];
@@ -39,7 +43,6 @@ const formatIssues = (data) => {
   orgs.forEach((org) => {
     const orgName = org.node.name;
     const orgUrl = org.node.url;
-    // result.organisations.push(orgName);
     const repos = org.node.repositories.edges;
 
     repos.forEach((repo) => {
@@ -71,6 +74,7 @@ const formatIssues = (data) => {
   return result;
 };
 
+// request organizations from github
 exports.getOrganizations = (req, res) => {
   const query = `query {
     viewer {
@@ -94,7 +98,7 @@ exports.getOrganizations = (req, res) => {
     .catch(error => console.error(error));
 };
 
-
+// request issues from github
 exports.getIssues = (req, res) => {
   const query = `query {
     viewer {

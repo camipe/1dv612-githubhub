@@ -44,8 +44,10 @@ export default {
   methods: {
     async getIssues() {
       try {
-        this.issues = JSON.parse(localStorage.getItem('issues'));
-
+        if (!localStorage.getItem('issues')) {
+          this.issues = JSON.parse(localStorage.getItem('issues'));
+        }
+        
         const res = await axios({
           url: `${process.env.API_URL}/issues`,
           headers: { Authorization: `Bearer ${this.$auth.token}` },

@@ -44,7 +44,6 @@ export default {
   methods: {
     async getIssues() {
       try {
-        console.log(JSON.parse(localStorage.getItem('issues')));
         this.issues = JSON.parse(localStorage.getItem('issues'));
 
         const res = await axios({
@@ -59,7 +58,6 @@ export default {
             issue.new = true;
           }
         });
-        console.log(res.data);
         this.issues = res.data;
         localStorage.setItem('issues', JSON.stringify(this.issues));
       } catch (e) {

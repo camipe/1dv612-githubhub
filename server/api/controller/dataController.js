@@ -53,6 +53,7 @@ const formatIssues = (data) => {
       issues.forEach((issue) => {
         // create new issue object with the information from each issue
         const i = {
+          id: issue.node.id,
           org: orgName,
           orgUrl,
           repo: repoName,
@@ -115,6 +116,7 @@ exports.getIssues = (req, res) => {
                   issues(last:50) {
                     edges {
                       node {
+                        id
                         createdAt
                         title
                         state

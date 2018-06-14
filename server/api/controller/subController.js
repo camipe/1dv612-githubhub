@@ -33,6 +33,7 @@ exports.subscribe = (req, res) => {
         url:`https://api.github.com/orgs/${ organization.name }/hooks`,
         headers: {'authorization': `Bearer ${ req.user.ghApiKey }`},
       });
+
       if ((Array.isArray(hook) || hook.data.length < 1)) {
         hookOptions = {
           name: 'web',
@@ -69,7 +70,9 @@ exports.notify = async (req, res) => {
         issue: req.body.issue,
       };
 
-      notification.send(mailOptions);
+      if (subscription.subscribers.length < 1) {
+        notification.send(mailOptions);
+      }
     } catch (error) {
       console.log(error);
     }

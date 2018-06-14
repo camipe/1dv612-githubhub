@@ -71,9 +71,11 @@ exports.notify = async (req, res) => {
       };
 
       if (subscription.subscribers.length < 1) {
+        console.log("Körs ändå");
         notification.send(mailOptions);
       }
     } catch (error) {
+      console.log("logged notify catch");
       console.log(error);
     }
   }

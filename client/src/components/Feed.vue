@@ -29,6 +29,7 @@ export default {
   data() {
     return {
       issues: [],
+      lastVisit: 0,
     };
   },
   computed: {
@@ -39,29 +40,27 @@ export default {
     },
   },
   mounted() {
+    if (localStorage.getItem('lastVisit')) {
+      this.lastVisit = new Date(parseInt(localStorage.getItem('lastVisit'), 10));
+    }
     this.getIssues();
+
+    localStorage.setItem('lastVisit', +new Date());
   },
   methods: {
     async getIssues() {
       try {
-        if (!localStorage.getItem('issues')) {
-          this.issues = JSON.parse(localStorage.getItem('issues'));
-        }
-        
         const res = await axios({
           url: `${process.env.API_URL}/issues`,
           headers: { Authorization: `Bearer ${this.$auth.token}` },
         });
 
-        res.data.forEach((issue) => {
-          if (this.issues.some(e => e.id === issue.id)) {
-            issue.new = false;
-          } else {
+        this.issues = res.data.map((issue) => {
+          if (new Date(issue.createdAt) > this.lastVisit) {
             issue.new = true;
           }
+          return issue;
         });
-        this.issues = res.data;
-        localStorage.setItem('issues', JSON.stringify(this.issues));
       } catch (e) {
         console.log(e);
       }
